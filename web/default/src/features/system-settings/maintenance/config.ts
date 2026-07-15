@@ -39,17 +39,19 @@ export type SidebarSectionConfig = {
 export type SidebarModulesAdminConfig = Record<string, SidebarSectionConfig>
 
 export const HEADER_NAV_DEFAULT: HeaderNavModulesConfig = {
-  home: true,
+  // Mirrors lib/nav-modules.ts's DEFAULT_HEADER_NAV_MODULES so the admin
+  // toggle UI reflects the actual out-of-the-box state.
+  home: false,
   console: true,
   pricing: {
     enabled: true,
     requireAuth: false,
   },
   rankings: {
-    enabled: true,
+    enabled: false,
     requireAuth: false,
   },
-  docs: true,
+  docs: false,
   about: true,
 }
 

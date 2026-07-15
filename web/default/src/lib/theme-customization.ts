@@ -25,9 +25,16 @@ For commercial licensing, please contact support@quantumnous.com
 
 export const THEME_PRESETS = [
   {
+    // The app's out-of-the-box look: Tencent's TDesign brand language
+    // (https://tdesign.tencent.com/design/values) — Tencent Blue (#0052D9,
+    // TDesign brand-7) as the single accent on an otherwise neutral canvas
+    // ("默认打底" — a default backdrop, not a broad blue surface). Baked
+    // directly into :root/.dark in theme.css (not a `[data-theme-preset]`
+    // override) since it's the no-selection state. Swatches preview the
+    // accent fading into the neutral backdrop it sits on.
     value: 'default',
-    name: 'Default',
-    swatches: ['oklch(0.72 0.18 250)', 'oklch(0.7 0.12 280)'],
+    name: 'Default Base',
+    swatches: ['oklch(0.4919 0.2174 261.35)', 'oklch(0.97 0 0)'],
   },
   {
     // Inspired by Anthropic's official brand language: warm cream canvas
@@ -169,9 +176,14 @@ export const THEME_COOKIE_KEYS = {
  * Co-located with the preset registry so a preset's signature typography
  * is declared in one place. Presets not listed here fall back to the
  * `resolveThemeFont` default of `sans`. The shipped `default` preset
- * opts into serif so the editorial Lora voice is the out-of-the-box
- * experience; vivid color presets stay on the humanist sans so their
- * accents read clearly without competing with the body type.
+ * resolves to `sans` here, but theme-presets.css layers a higher-specificity
+ * `[data-theme-font='sans']:not([data-theme-preset])` rule on top of the
+ * generic sans rule so it renders with the TDesign font stack
+ * (`--font-tencent`) instead of plain `--font-sans` — an explicit user
+ * choice of `serif` still wins. `anthropic` opts into serif directly so the
+ * editorial Lora voice is that preset's signature; other vivid color
+ * presets stay on the humanist sans so their accents read clearly without
+ * competing with the body type.
  */
 export const PRESET_DEFAULT_FONT: Partial<
   Record<ThemePreset, ResolvedThemeFont>

@@ -70,17 +70,17 @@ export function Features(_props: FeaturesProps) {
         'Enterprise-grade security with comprehensive permission management'
       ),
       span: 'md:col-span-1',
-      icon: <Shield className='size-4 text-emerald-400' />,
+      icon: <Shield className='size-4 text-sky-400' />,
       visual: (
         <div className='mt-4 flex items-center justify-center'>
           <div className='relative'>
-            <div className='flex size-16 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/5'>
+            <div className='flex size-16 items-center justify-center rounded-2xl border border-sky-500/20 bg-sky-500/5'>
               <Shield
-                className='size-7 text-emerald-500/70'
+                className='size-7 text-sky-500/70'
                 strokeWidth={1.5}
               />
             </div>
-            <div className='absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-emerald-500'>
+            <div className='absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-sky-500'>
               <svg
                 className='size-2.5 text-white'
                 fill='none'

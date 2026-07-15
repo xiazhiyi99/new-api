@@ -628,6 +628,20 @@ For commercial licensing, please contact support@quantumnous.com
   --font-body: var(--font-serif);
 }
 
+/* The default (no-preset) theme layers TDesign's own font stack on top of
+ * the generic `sans` rule above: wins via specificity
+ * (`:not()` contributes its argument's specificity, so this is (0,2,0) vs.
+ * the generic rule's (0,1,0)), not source order, so it applies regardless
+ * of where this block sits in the file. Only fires when no
+ * `data-theme-preset` attribute is set (the true default state) and the
+ * resolved font is `sans` (the default preset's own choice per
+ * `PRESET_DEFAULT_FONT` — see theme-customization.ts); an explicit user
+ * choice of `serif` falls through to the generic serif rule above
+ * untouched, and any named preset keeps plain `--font-sans`. */
+[data-theme-font='sans']:not([data-theme-preset]) {
+  --font-body: var(--font-tencent);
+}
+
 /* ── Serif typography refinements ────────────────────────────────────────
  * When the body runs in serif, three things happen:
  *   1. Editorial OpenType features (kern/liga + tabular numerals so numeric

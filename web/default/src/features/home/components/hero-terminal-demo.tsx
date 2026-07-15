@@ -20,7 +20,7 @@ import { useState, useEffect, useRef, type ReactNode } from 'react'
 
 import { cn } from '@/lib/utils'
 
-type AccentTone = 'emerald' | 'amber' | 'blue' | 'violet'
+type AccentTone = 'sky' | 'amber' | 'blue' | 'violet'
 
 interface ApiDemoConfig {
   id: string
@@ -44,11 +44,11 @@ const ACCENT_CLASSES: Record<
     badge: string
   }
 > = {
-  emerald: {
-    activeText: 'text-emerald-600 dark:text-emerald-400',
-    activeBorder: 'border-emerald-500 dark:border-emerald-400',
+  sky: {
+    activeText: 'text-sky-600 dark:text-sky-400',
+    activeBorder: 'border-sky-500 dark:border-sky-400',
     badge:
-      'bg-emerald-500/10 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-400',
+      'bg-sky-500/10 text-sky-600 dark:bg-sky-400/10 dark:text-sky-400',
   },
   amber: {
     activeText: 'text-amber-600 dark:text-amber-400',
@@ -92,7 +92,7 @@ const API_DEMOS: ApiDemoConfig[] = [
     responseHighlights: ['<text>', '<tokens>'],
     tokens: 27,
     latency: 142,
-    accent: 'emerald',
+    accent: 'sky',
   },
   {
     id: 'responses',
@@ -504,7 +504,7 @@ function CodeLine(props: { children: ReactNode; indent?: number }) {
 
 function Command(props: { children: ReactNode }) {
   return (
-    <span className='font-medium text-emerald-600 dark:text-emerald-400'>
+    <span className='font-medium text-blue-600 dark:text-blue-400'>
       {props.children}
     </span>
   )

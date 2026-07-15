@@ -71,7 +71,9 @@ const LINE_TONE_CLASSES: Record<StatCardTone, string> = {
 
 const ICON_TONE_BY_STAT_TONE: Record<StatCardTone, IconBadgeTone> = {
   'accent-1': 'chart-1',
-  'accent-2': 'chart-2',
+  // Matches --overview-accent-2 (blue, not --chart-2's success green) —
+  // these tones are decorative rotation, not a success/failure signal.
+  'accent-2': 'info',
   'accent-3': 'chart-3',
 }
 

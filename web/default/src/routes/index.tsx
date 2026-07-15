@@ -16,10 +16,17 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
-import { Home } from '@/features/home'
-
+// The site now enters straight into the console instead of the public
+// marketing landing page. `/_authenticated` still bounces signed-out
+// visitors to `/sign-in` (preserving `/dashboard` as the post-login
+// destination), so this covers both logged-in and logged-out visits.
+// The `Home` marketing page (`@/features/home`) is left in place — it's
+// still reachable if this redirect is ever removed — just not the
+// default entry point.
 export const Route = createFileRoute('/')({
-  component: Home,
+  beforeLoad: () => {
+    throw redirect({ to: '/dashboard' })
+  },
 })

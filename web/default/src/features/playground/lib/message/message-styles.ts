@@ -27,12 +27,13 @@ export function getMessageContentStyles() {
     'group-[.is-assistant]:max-w-[78ch]',
     'group-[.is-user]:w-fit',
 
-    // User bubble: compact surface that stays calm in both light and dark themes.
+    // User bubble: light-blue tinted surface (Tencent Blue accent) that
+    // stays calm in both light and dark themes.
     'group-[.is-user]:rounded-2xl',
     'group-[.is-user]:rounded-br-md',
     'group-[.is-user]:border',
-    'group-[.is-user]:border-border/70',
-    'group-[.is-user]:bg-muted/70',
+    'group-[.is-user]:border-primary/15',
+    'group-[.is-user]:bg-primary/10',
     'group-[.is-user]:px-4',
     'group-[.is-user]:py-2.5',
     'group-[.is-user]:text-foreground',

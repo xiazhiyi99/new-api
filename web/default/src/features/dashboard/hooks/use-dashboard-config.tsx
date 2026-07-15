@@ -74,7 +74,7 @@ export function useModelStatCardsConfig(): StatCardConfig[] {
       title: t('Average RPM'),
       description: t('Requests per minute'),
       icon: Gauge,
-      iconTone: 'chart-2',
+      iconTone: 'chart-3',
       getValue: (stat, timeRangeMinutes = 1) =>
         safeDivide(stat?.rpm ?? 0, timeRangeMinutes),
     },

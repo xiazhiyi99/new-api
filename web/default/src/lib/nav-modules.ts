@@ -33,11 +33,14 @@ export type HeaderNavModules = {
 }
 
 const DEFAULT_HEADER_NAV_MODULES: HeaderNavModules = {
-  home: true,
+  // Home, Rankings and Docs are hidden from the top nav out of the box —
+  // the site now sends visitors straight into the console (see
+  // routes/index.tsx) instead of a public marketing landing page.
+  home: false,
   console: true,
   pricing: { enabled: true, requireAuth: false },
-  rankings: { enabled: true, requireAuth: false },
-  docs: true,
+  rankings: { enabled: false, requireAuth: false },
+  docs: false,
   about: true,
 }
 
