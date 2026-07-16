@@ -24,9 +24,56 @@ body.sidebar-collapsed {
   --sidebar-current-width: var(--sidebar-width-collapsed);
 }
 
+/* Tencent Blue (#0052D9, TDesign brand-7 — https://tdesign.tencent.com/design/values)
+ * as the app's brand color. Semi Design derives every primary-* token
+ * (--semi-color-primary/-hover/-active/-disabled/-light-*) from the raw
+ * --semi-blue-0..9 RGB scale below, so overriding just the scale — instead
+ * of the derived tokens — keeps Semi's own hover/active/disabled formulas
+ * intact while making --semi-color-primary resolve to exactly #0052D9.
+ * blue-5 is the slot Semi's formulas treat as "the base color", so the
+ * scale is TDesign's own brand-1..10 palette shifted so brand-7 lands on
+ * blue-5 (light) — matching how brand-6..10 already relate to brand-7 as
+ * lighter/darker neighbors, so hover/active/disabled read exactly as
+ * TDesign intends. Dark mode shifts brand-8 onto blue-5 instead of
+ * brand-7, mirroring TDesign's own dark theme (a lighter step is used as
+ * the visible primary against dark backgrounds — see tdesign-common's
+ * _dark.less: `--td-brand-color: var(--td-brand-color-8)`). The two
+ * outermost steps in each mode (blue-9 light / blue-8-9 dark) have no
+ * direct TDesign match, so they extrapolate the adjacent step's delta. */
+:root {
+  --semi-blue-0: 217, 225, 255; /* brand-2 #d9e1ff */
+  --semi-blue-1: 181, 199, 255; /* brand-3 #b5c7ff */
+  --semi-blue-2: 142, 171, 255; /* brand-4 #8eabff */
+  --semi-blue-3: 97, 141, 255; /* brand-5 #618dff */
+  --semi-blue-4: 54, 110, 244; /* brand-6 #366ef4 */
+  --semi-blue-5: 0, 82, 217; /* brand-7 #0052d9 — Tencent Blue, primary */
+  --semi-blue-6: 0, 60, 171; /* brand-8 #003cab */
+  --semi-blue-7: 0, 42, 124; /* brand-9 #002a7c */
+  --semi-blue-8: 0, 26, 87; /* brand-10 #001a57 */
+  --semi-blue-9: 0, 10, 50; /* extrapolated, one step past brand-10 */
+}
+
+body[theme-mode='dark'] {
+  --semi-blue-0: 20, 57, 117; /* dark brand-3 #143975 */
+  --semi-blue-1: 16, 61, 136; /* dark brand-4 #103d88 */
+  --semi-blue-2: 13, 66, 154; /* dark brand-5 #0d429a */
+  --semi-blue-3: 5, 75, 190; /* dark brand-6 #054bbe */
+  --semi-blue-4: 38, 103, 212; /* dark brand-7 #2667d4 */
+  --semi-blue-5: 69, 130, 230; /* dark brand-8 #4582e6 — dark-mode primary */
+  --semi-blue-6: 105, 158, 245; /* dark brand-9 #699ef5 */
+  --semi-blue-7: 150, 187, 248; /* dark brand-10 #96bbf8 */
+  --semi-blue-8: 195, 216, 251; /* extrapolated, one step past brand-10 */
+  --semi-blue-9: 240, 245, 254; /* extrapolated, two steps past brand-10 */
+}
+
 body {
+  /* TDesign's own font stack (PingFang SC / Microsoft YaHei / Arial —
+   * https://tdesign.tencent.com/design/values) with broader CJK/system
+   * fallbacks, mirroring web/default's --font-tencent. */
   font-family:
-    Lato, 'Helvetica Neue', Arial, Helvetica, 'Microsoft YaHei', sans-serif;
+    -apple-system, BlinkMacSystemFont, 'PingFang SC', 'PingFang TC',
+    'Hiragino Sans GB', 'Hiragino Kaku Gothic ProN', 'Microsoft YaHei',
+    '微软雅黑', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: var(--semi-color-text-0);
   background-color: var(--semi-color-bg-0);
 }
@@ -213,23 +260,39 @@ code {
   display: none;
 }
 
-/* 侧边栏导航项样式 */
-.sidebar-nav-item {
-  border-radius: 6px;
-  margin: 3px 8px;
-  transition: all 0.15s ease;
-  padding: 8px 12px;
-}
-
-.sidebar-nav-item:hover {
-  background-color: rgba(var(--semi-blue-0), 0.08);
-  color: var(--semi-color-primary);
-}
-
-.sidebar-nav-item-selected {
-  background-color: rgba(var(--semi-blue-0), 0.12);
-  color: var(--semi-color-primary);
+/* 侧边栏选中项 —— 实底腾讯蓝
+ * SiderBar.jsx 曾经给 <Nav> 传了 itemStyle/hoverStyle/selectedStyle 三个
+ * prop，但这些根本不是 Nav 组件支持的属性（Semi 会原样丢弃，不会应用到任何
+ * DOM 节点上），所以选中态实际展示的一直是 Semi 自带的
+ * .semi-navigation-item-selected 默认样式 —— 浅色的
+ * --semi-color-primary-light-default 底色。这里直接覆盖 Semi 真实的类名，
+ * 换成实底腾讯蓝；文字和图标颜色已经在 SiderBar.jsx / render.jsx 里用行内
+ * style 强制设成白色（内联样式优先级高于这里的类选择器，不受影响）。 */
+.semi-navigation-item-selected,
+.semi-navigation-item-normal:hover.semi-navigation-item-selected,
+.semi-navigation-item-normal:active.semi-navigation-item-selected,
+.semi-navigation-sub .semi-navigation-item-selected,
+.semi-navigation-sub .semi-navigation-item:hover.semi-navigation-item-selected,
+.semi-navigation-sub
+  .semi-navigation-item:active.semi-navigation-item-selected {
+  background-color: var(--semi-color-primary);
   font-weight: 500;
+}
+
+/* 分组标题（Nav.Sub 触发器）本身被选中时同理 */
+.semi-navigation-vertical
+  .semi-navigation-list
+  .semi-navigation-sub-wrap
+  > .semi-navigation-sub-title-selected,
+.semi-navigation-vertical
+  .semi-navigation-list
+  .semi-navigation-sub-wrap
+  > .semi-navigation-sub-title:hover.semi-navigation-sub-title-selected,
+.semi-navigation-vertical
+  .semi-navigation-list
+  .semi-navigation-sub-wrap
+  > .semi-navigation-sub-title:active.semi-navigation-sub-title-selected {
+  background-color: var(--semi-color-primary);
 }
 
 /* 图标容器样式 */

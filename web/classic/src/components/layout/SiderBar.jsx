@@ -307,8 +307,9 @@ const SiderBar = ({ onNavigate = () => {} }) => {
     }
   }, [collapsed]);
 
-  // 选中高亮颜色（统一）
-  const SELECTED_COLOR = 'var(--semi-color-primary)';
+  // 选中高亮颜色（统一）—— 选中态背景改为腾讯蓝实底（见 .sidebar-nav-item-selected），
+  // 文字/图标随之改为白色以保证对比度
+  const SELECTED_COLOR = '#fff';
 
   // 渲染自定义菜单项
   const renderNavItem = (item) => {
@@ -410,9 +411,6 @@ const SiderBar = ({ onNavigate = () => {} }) => {
           isCollapsed={collapsed}
           onCollapseChange={toggleCollapsed}
           selectedKeys={selectedKeys}
-          itemStyle='sidebar-nav-item'
-          hoverStyle='sidebar-nav-item:hover'
-          selectedStyle='sidebar-nav-item-selected'
           renderWrapper={({ itemElement, props }) => {
             const to =
               routerMapState[props.itemKey] || routerMap[props.itemKey];

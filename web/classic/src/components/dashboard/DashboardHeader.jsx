@@ -44,7 +44,7 @@ const DashboardHeader = ({
           type='tertiary'
           icon={<Search size={16} />}
           onClick={showSearchModal}
-          className={`bg-green-500 hover:bg-green-600 ${ICON_BUTTON_CLASS}`}
+          className={`bg-sky-500 hover:bg-sky-600 ${ICON_BUTTON_CLASS}`}
         />
         <Button
           type='tertiary'

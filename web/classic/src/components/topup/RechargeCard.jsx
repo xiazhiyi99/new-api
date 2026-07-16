@@ -130,7 +130,7 @@ const RechargeCard = ({
           <div
             className='relative h-30'
             style={{
-              '--palette-primary-darkerChannel': '37 99 235',
+              '--palette-primary-darkerChannel': '0 82 217',
               backgroundImage: `linear-gradient(0deg, rgba(var(--palette-primary-darkerChannel) / 80%), rgba(var(--palette-primary-darkerChannel) / 80%)), url('/cover-4.webp')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',

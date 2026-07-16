@@ -1,0 +1,7 @@
+[install]
+# The classic (web/classic) and default (web/default) workspaces pull in
+# incompatible transitive versions of date-fns (semi-ui needs v2, default's
+# deps need v4). The hoisted linker silently collapses these to one version,
+# breaking classic's build; isolated gives each workspace its own exact
+# resolution (pnpm-style), which is what both frontends actually need.
+linker = "isolated"

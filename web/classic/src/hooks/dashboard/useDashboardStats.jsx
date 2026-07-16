@@ -68,15 +68,15 @@ export const useDashboardStats = (
       },
       {
         title: createSectionTitle(Activity, t('使用统计')),
-        color: 'bg-green-50',
+        color: 'bg-sky-50',
         items: [
           {
             title: t('请求次数'),
             value: userState.user?.request_count,
             icon: <IconSend />,
-            avatarColor: 'green',
+            avatarColor: 'light-blue',
             trendData: [],
-            trendColor: '#10b981',
+            trendColor: '#0ea5e9',
           },
           {
             title: t('统计次数'),

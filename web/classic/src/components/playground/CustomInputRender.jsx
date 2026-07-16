@@ -119,9 +119,9 @@ const CustomInputRender = (props) => {
       })
     : null;
 
-  // 发送按钮
+  // 发送按钮 —— 腾讯蓝
   const styledSendNode = React.cloneElement(sendNode, {
-    className: `!rounded-full !bg-purple-500 hover:!bg-purple-600 flex-shrink-0 transition-all ${sendNode.props.className || ''}`,
+    className: `!rounded-full !bg-[#0052d9] hover:!bg-[#003cab] flex-shrink-0 transition-all ${sendNode.props.className || ''}`,
     style: {
       ...sendNode.props.style,
       width: '32px',
@@ -137,7 +137,7 @@ const CustomInputRender = (props) => {
   return (
     <div className='p-2 sm:p-4' ref={containerRef}>
       <div
-        className='flex items-center gap-2 sm:gap-3 p-2 bg-gray-50 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow'
+        className='flex items-center gap-2 sm:gap-3 p-2 bg-blue-50/60 dark:bg-blue-950/20 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow'
         style={{ border: '1px solid var(--semi-color-border)' }}
         onClick={onClick}
         title={t('支持 Ctrl+V 粘贴图片')}

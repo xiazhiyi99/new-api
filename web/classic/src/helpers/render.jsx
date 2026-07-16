@@ -110,7 +110,9 @@ import { FaLinkedin, FaSlack } from 'react-icons/fa';
 export function getLucideIcon(key, selected = false) {
   const size = 16;
   const strokeWidth = 2;
-  const SELECTED_COLOR = 'var(--semi-color-primary)';
+  // 选中态的侧边栏底色是实底腾讯蓝（见 index.css .sidebar-nav-item-selected），
+  // 图标改为白色以保证对比度
+  const SELECTED_COLOR = '#fff';
   const iconColor = selected ? SELECTED_COLOR : 'currentColor';
   const commonProps = {
     size,
