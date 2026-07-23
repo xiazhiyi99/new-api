@@ -57,7 +57,10 @@ const dashboardRegistry = createSectionRegistry<
   []
 >({
   sections: DASHBOARD_SECTIONS,
-  defaultSection: 'overview',
+  // Overview is hidden from the sidebar (see use-sidebar-data.ts), so
+  // `/dashboard` should land on the section that's actually linked there —
+  // Model Call Analytics ('models', labeled "Dashboard"/"数据看板" in the nav).
+  defaultSection: 'models',
   basePath: '/dashboard',
   urlStyle: 'path',
 })

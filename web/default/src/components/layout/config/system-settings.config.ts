@@ -101,7 +101,11 @@ export const SYSTEM_SETTINGS_VIEW: SidebarView = {
   id: 'system-settings',
   pathPattern: /^\/system-settings(\/|$)/,
   parent: {
-    to: '/dashboard/overview',
+    // Goes through the bare `/dashboard` redirect rather than a hardcoded
+    // section id, so this always lands wherever DASHBOARD_DEFAULT_SECTION
+    // currently points (see section-registry.tsx) instead of a section
+    // that may no longer be linked from the sidebar.
+    to: '/dashboard',
     label: 'Back to Dashboard',
   },
   getNavGroups: getSystemSettingsNavGroups,
