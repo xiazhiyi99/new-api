@@ -27,12 +27,10 @@ import {
   EmptyState,
   SearchBar,
   PricingTable,
-  PricingSidebar,
   PricingToolbar,
-  ModelCardGrid,
   ModelDetailsDrawer,
 } from './components'
-import { EXCLUDED_GROUPS, VIEW_MODES } from './constants'
+import { DEFAULT_TOKEN_UNIT } from './constants'
 import { useFilters } from './hooks/use-filters'
 import { usePricingData } from './hooks/use-pricing-data'
 
@@ -45,10 +43,7 @@ export function Pricing() {
   const {
     models,
     vendors,
-    groupRatio,
-    usableGroup,
     endpointMap,
-    autoGroups,
     isLoading,
     priceRate,
     usdExchangeRate,
@@ -58,27 +53,11 @@ export function Pricing() {
     searchInput,
     sortBy,
     vendorFilter,
-    groupFilter,
-    quotaTypeFilter,
-    endpointTypeFilter,
-    tagFilter,
-    tokenUnit,
-    viewMode,
-    showRechargePrice,
     setSearchInput,
     setSortBy,
     setVendorFilter,
-    setGroupFilter,
-    setQuotaTypeFilter,
-    setEndpointTypeFilter,
-    setTagFilter,
-    setTokenUnit,
-    setViewMode,
-    setShowRechargePrice,
     filteredModels,
     hasActiveFilters,
-    activeFilterCount,
-    availableTags,
     clearFilters,
     clearSearch,
   } = useFilters(models || [])
@@ -97,14 +76,6 @@ export function Pricing() {
     [models, selectedModelName]
   )
 
-  const availableGroups = useMemo(
-    () =>
-      Object.keys(usableGroup || {}).filter(
-        (g) => !EXCLUDED_GROUPS.includes(g)
-      ),
-    [usableGroup]
-  )
-
   const handleClearAll = useCallback(() => {
     clearFilters()
     clearSearch()
@@ -121,28 +92,11 @@ export function Pricing() {
       )
     }
 
-    if (viewMode === VIEW_MODES.CARD) {
-      return (
-        <ModelCardGrid
-          models={filteredModels}
-          onModelClick={handleModelClick}
-          priceRate={priceRate}
-          usdExchangeRate={usdExchangeRate}
-          tokenUnit={tokenUnit}
-          showRechargePrice={showRechargePrice}
-          selectedGroup={groupFilter}
-        />
-      )
-    }
-
     return (
       <PricingTable
         models={filteredModels}
         priceRate={priceRate}
         usdExchangeRate={usdExchangeRate}
-        tokenUnit={tokenUnit}
-        showRechargePrice={showRechargePrice}
-        selectedGroup={groupFilter}
         onModelClick={handleModelClick}
       />
     )
@@ -152,7 +106,7 @@ export function Pricing() {
     return (
       <PublicLayout showMainContainer={false}>
         <div className='mx-auto w-full max-w-[1800px] px-3 pt-16 pb-8 sm:px-6 sm:pt-20 sm:pb-10 xl:px-8'>
-          <LoadingSkeleton viewMode={viewMode} />
+          <LoadingSkeleton />
         </div>
       </PublicLayout>
     )
@@ -202,63 +156,18 @@ export function Pricing() {
             />
           </header>
 
-          <div className='grid gap-4 xl:grid-cols-[330px_minmax(0,1fr)]'>
-            <PricingSidebar
-              quotaTypeFilter={quotaTypeFilter}
-              endpointTypeFilter={endpointTypeFilter}
+          <main className='min-w-0 space-y-4'>
+            <PricingToolbar
+              sortBy={sortBy}
+              onSortChange={setSortBy}
               vendorFilter={vendorFilter}
-              groupFilter={groupFilter}
-              tagFilter={tagFilter}
-              onQuotaTypeChange={setQuotaTypeFilter}
-              onEndpointTypeChange={setEndpointTypeFilter}
               onVendorChange={setVendorFilter}
-              onGroupChange={setGroupFilter}
-              onTagChange={setTagFilter}
               vendors={vendors || []}
-              groups={availableGroups}
-              groupRatios={groupRatio}
-              tags={availableTags}
               models={models || []}
-              hasActiveFilters={hasActiveFilters}
-              onClearFilters={clearFilters}
-              className='hover-scrollbar sticky top-4 hidden max-h-[calc(100dvh-2rem)] self-start overflow-y-auto xl:block'
             />
 
-            <main className='min-w-0 space-y-4'>
-              <PricingToolbar
-                filteredCount={filteredModels.length}
-                totalCount={models?.length}
-                sortBy={sortBy}
-                onSortChange={setSortBy}
-                tokenUnit={tokenUnit}
-                onTokenUnitChange={setTokenUnit}
-                showRechargePrice={showRechargePrice}
-                onRechargePriceChange={setShowRechargePrice}
-                viewMode={viewMode}
-                onViewModeChange={setViewMode}
-                quotaTypeFilter={quotaTypeFilter}
-                endpointTypeFilter={endpointTypeFilter}
-                vendorFilter={vendorFilter}
-                groupFilter={groupFilter}
-                tagFilter={tagFilter}
-                onQuotaTypeChange={setQuotaTypeFilter}
-                onEndpointTypeChange={setEndpointTypeFilter}
-                onVendorChange={setVendorFilter}
-                onGroupChange={setGroupFilter}
-                onTagChange={setTagFilter}
-                vendors={vendors || []}
-                groups={availableGroups}
-                groupRatios={groupRatio}
-                tags={availableTags}
-                models={models || []}
-                hasActiveFilters={hasActiveFilters}
-                activeFilterCount={activeFilterCount}
-                onClearFilters={clearFilters}
-              />
-
-              {renderPricingContent()}
-            </main>
-          </div>
+            {renderPricingContent()}
+          </main>
 
           {selectedModel && (
             <ModelDetailsDrawer
@@ -267,19 +176,15 @@ export function Pricing() {
                 if (!open) setSelectedModelName(null)
               }}
               model={selectedModel}
-              groupRatio={groupRatio || {}}
-              usableGroup={usableGroup || {}}
               endpointMap={
                 (endpointMap as Record<
                   string,
                   { path?: string; method?: string }
                 >) || {}
               }
-              autoGroups={autoGroups || []}
               priceRate={priceRate ?? 1}
               usdExchangeRate={usdExchangeRate ?? 1}
-              tokenUnit={tokenUnit}
-              showRechargePrice={showRechargePrice}
+              tokenUnit={DEFAULT_TOKEN_UNIT}
             />
           )}
         </PageTransition>
