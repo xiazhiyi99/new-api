@@ -72,19 +72,12 @@ export const API_KEY_FORM_DEFAULT_VALUES: ApiKeyFormValues = {
   unlimited_quota: true,
   model_limits: [],
   allow_ips: '',
+  // New keys carry no explicit group, so the backend resolves requests with the
+  // owner's own group (`default` for regular users). Cross-group retry only
+  // applies to the `auto` group, which is no longer selectable.
   group: DEFAULT_GROUP,
-  cross_group_retry: true,
+  cross_group_retry: false,
   tokenCount: 1,
-}
-
-export function getApiKeyFormDefaultValues(
-  defaultUseAutoGroup: boolean
-): ApiKeyFormValues {
-  return {
-    ...API_KEY_FORM_DEFAULT_VALUES,
-    group: defaultUseAutoGroup ? 'auto' : DEFAULT_GROUP,
-    cross_group_retry: defaultUseAutoGroup,
-  }
 }
 
 // ============================================================================
