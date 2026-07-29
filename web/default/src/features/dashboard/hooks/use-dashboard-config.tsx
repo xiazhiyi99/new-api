@@ -20,8 +20,6 @@ import {
   Hash,
   Coins,
   Layers,
-  Gauge,
-  Zap,
   Flame,
   TrendingUp,
   Activity,
@@ -30,7 +28,6 @@ import {
 import { useTranslation } from 'react-i18next'
 
 import type { IconBadgeTone } from '@/components/ui/icon-badge'
-import { safeDivide } from '@/features/dashboard/lib'
 
 interface StatCardConfig {
   key: string
@@ -38,7 +35,7 @@ interface StatCardConfig {
   description: string
   icon: LucideIcon
   iconTone: IconBadgeTone
-  getValue: (stat: Record<string, number>, days?: number) => number
+  getValue: (stat: Record<string, number>) => number
 }
 
 export function useModelStatCardsConfig(): StatCardConfig[] {
@@ -68,24 +65,6 @@ export function useModelStatCardsConfig(): StatCardConfig[] {
       icon: Layers,
       iconTone: 'chart-4',
       getValue: (stat) => stat?.tpm ?? 0,
-    },
-    {
-      key: 'avgRpm',
-      title: t('Average RPM'),
-      description: t('Requests per minute'),
-      icon: Gauge,
-      iconTone: 'chart-3',
-      getValue: (stat, timeRangeMinutes = 1) =>
-        safeDivide(stat?.rpm ?? 0, timeRangeMinutes),
-    },
-    {
-      key: 'avgTpm',
-      title: t('Average TPM'),
-      description: t('Tokens per minute'),
-      icon: Zap,
-      iconTone: 'warning',
-      getValue: (stat, timeRangeMinutes = 1) =>
-        safeDivide(stat?.tpm ?? 0, timeRangeMinutes),
     },
   ]
 }
