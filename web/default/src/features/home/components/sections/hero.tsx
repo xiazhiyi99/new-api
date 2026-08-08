@@ -60,7 +60,7 @@ export function Hero(props: HeroProps) {
         </h1>
 
         <p className='text-muted-foreground mt-4 max-w-md text-base leading-relaxed md:text-lg'>
-          {t('Vast Range of AI Models')}
+          {t('Unified. Cost-effective. Efficient.')}
         </p>
 
         <div className='mt-8 flex flex-wrap items-center justify-center gap-3'>
